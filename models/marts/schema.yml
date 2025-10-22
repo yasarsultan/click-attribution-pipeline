@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: mart_firstclick_attribution
+    description: |
+      First-click attribution ({{ var('attribution_window_days') }}-day window).
+      INCREMENTAL: only processes new conversions and their attribution windows.
+    columns:
+      - name: conversion_session
+        description: "Unique conversion session identifier"
+        tests:
+          - unique
+          - not_null
+      - name: revenue
+        tests:
+          - not_null
+      - name: attributed_channel
+        tests:
+          - not_null
+
+  - name: mart_lastclick_attribution
+    description: |
+      Last-click attribution ({{ var('attribution_window_days') }}-day window, non-direct preferred).
+      INCREMENTAL: only processes new conversions and their attribution windows.
+    columns:
+      - name: conversion_session
+        tests:
+          - unique
+          - not_null
+      - name: revenue
+        tests:
+          - not_null

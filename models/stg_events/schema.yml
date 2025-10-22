@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: stg_events
+    description: |
+      Note: GA4 public dataset is frozen and does not update.
+      Source: {{ var('ga4_project') }}.{{ var('ga4_dataset') }}
+    columns:
+      - name: event_id
+        description: "Unique event identifier: event_name-user_pseudo_id-timestamp"
+        tests:
+          - unique
+          - not_null
+      - name: user_pseudo_id
+        tests:
+          - not_null
+      - name: event_timestamp
+        tests:
+          - not_null
+      - name: event_date
+        description: "Event date (between 2020-11-01 and 2021-01-31)"
+
+  - name: stg_streamed_events
+    description: "Staged streaming events (INCREMENTAL - only new data processed)"
+    columns:
+      - name: event_id
+        description: "Unique event identifier: event_name-user_pseudo_id-timestamp"
+        tests:
+          - unique
+          - not_null
+      - name: user_pseudo_id
+        tests:
+          - not_null

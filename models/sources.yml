@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: ga4
+    database: "{{ var('ga4_project') }}"
+    schema: "{{ var('ga4_dataset') }}"
+    tables:
+      - name: events_20210131
+        description: "All GA4 events tables (wildcard)"
+        
+  - name: streaming
+    schema: attribution_dev
+    tables:
+      - name: streaming_events
+        description: "Real-time streaming buffer"
+        loaded_at_field: event_timestamp
+        freshness:
+          warn_after: {count: 10, period: minute}

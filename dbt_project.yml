@@ -1,36 +1,29 @@
-
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
 name: 'dbt_attribution'
 version: '1.0.0'
+config-version: 2
 
-# This setting configures which "profile" dbt uses for this project.
 profile: 'dbt_attribution'
 
-# These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
-model-paths: ["models"]
-analysis-paths: ["analyses"]
-test-paths: ["tests"]
-seed-paths: ["seeds"]
-macro-paths: ["macros"]
-snapshot-paths: ["snapshots"]
+model-paths: ['models']
+test-paths: ['tests']
+macro-paths: ['macros']
 
-clean-targets:         # directories to be removed by `dbt clean`
-  - "target"
-  - "dbt_packages"
-
-
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
-# In this example config, we tell dbt to build all models in the example/
-# directory as views. These settings can be overridden in the individual model
-# files using the `{{ config(...) }}` macro.
 models:
   dbt_attribution:
-    # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    staging:
+      +materialized: incremental
+      +on_schema_change: append_new_columns
+    intermediate:
+      +materialized: incremental
+      +on_schema_change: append_new_columns
+    marts:
+      +materialized: incremental
+      +on_schema_change: append_new_columns
+
+vars:
+  ga4_project: 'bigquery-public-data'
+  ga4_dataset: 'ga4_obfuscated_sample_ecommerce'
+  ga4_start_date: '20201101'
+  ga4_end_date: '20210131'
+  attribution_window_days: 14
+  session_timeout_minutes: 30

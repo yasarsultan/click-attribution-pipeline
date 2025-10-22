@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: int_sessions
+    description: |
+      Sessionized data with {{ var('session_timeout_minutes') }}-min timeout.
+      INCREMENTAL: processes only new events, looks back 2 days for session completion.
+    columns:
+      - name: session_id
+        description: "Unique session: user_pseudo_id-session_number"
+        tests:
+          - unique
+          - not_null
+      - name: session_start
+        tests:
+          - not_null
+      - name: channel
+        tests:
+          - not_null
