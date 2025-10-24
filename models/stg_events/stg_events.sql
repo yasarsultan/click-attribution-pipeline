@@ -15,7 +15,7 @@ with events as (
         ecommerce.purchase_revenue as revenue,
         'ga4' as event_source
 
-    from `{{ var('ga4_project') }}.{{ var('ga4_dataset') }}.events_20210131`
+    from `{{ var('ga4_project') }}.{{ var('ga4_dataset') }}.events_202101*`
     where 
         event_name in ('session_start', 'page_view', 'purchase')
 )

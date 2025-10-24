@@ -23,7 +23,5 @@ models:
 vars:
   ga4_project: 'bigquery-public-data'
   ga4_dataset: 'ga4_obfuscated_sample_ecommerce'
-  ga4_start_date: '20201101'
-  ga4_end_date: '20210131'
   attribution_window_days: 14
   session_timeout_minutes: 30

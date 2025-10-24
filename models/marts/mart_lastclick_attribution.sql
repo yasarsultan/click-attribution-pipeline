@@ -1,4 +1,4 @@
-{{
+{{ 
   config(
     materialized='incremental',
     unique_key='conversion_session',
@@ -6,7 +6,7 @@
       "field": "conversion_date",
       "data_type": "date"
     }
-  )
+  ) 
 }}
 
 with conversions as (
@@ -45,10 +45,9 @@ journey as (
         row_number() over (
             partition by c.session_id 
             order by 
-                case when s.channel = 'Direct' then 1 else 0 end,
-                s.session_start desc
+                case when s.channel = 'Direct' then 0 else 1 end,  -- Direct sessions prioritized first
+                s.session_start desc  -- then most recent session
         ) as touch_order_last
-        
     from conversions c
     join all_sessions s
         on c.user_pseudo_id = s.user_pseudo_id
@@ -74,6 +73,6 @@ select
     count(*) as total_touches,
     
     'last_click' as model
-    
+
 from journey
 group by 1, 2, 3, 4, 5
