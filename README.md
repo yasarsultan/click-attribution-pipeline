@@ -51,9 +51,11 @@ This project implements an attribution pipeline that:
 
 ---
 
-<!-- ## Architecture -->
+## Architecture
 
-<!-- ### High-Level Architecture -->
+### High-Level Architecture
+
+![img](https://github.com/yasarsultan/click-attribution-pipeline/blob/main/images/Attribution-pipeline.png)
 
 ## 📁 Project Structure
 
